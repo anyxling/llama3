@@ -103,28 +103,28 @@ class Attention(nn.Module):
             args.n_heads * self.head_dim,
             bias=False,
             # gather_output=False,
-            init_method=lambda x: x,
+            # init_method=lambda x: x,
         )
         self.wk = Linear(
             args.dim,
             self.n_kv_heads * self.head_dim,
             bias=False,
             # gather_output=False,
-            init_method=lambda x: x,
+            # init_method=lambda x: x,
         )
         self.wv = Linear(
             args.dim,
             self.n_kv_heads * self.head_dim,
             bias=False,
             # gather_output=False,
-            init_method=lambda x: x,
+            # init_method=lambda x: x,
         )
         self.wo = Linear(
             args.n_heads * self.head_dim,
             args.dim,
             bias=False,
             # input_is_parallel=True,
-            init_method=lambda x: x,
+            # init_method=lambda x: x,
         )
 
         self.cache_k = torch.zeros(
@@ -207,13 +207,13 @@ class FeedForward(nn.Module):
         hidden_dim = multiple_of * ((hidden_dim + multiple_of - 1) // multiple_of)
 
         self.w1 = Linear(
-            dim, hidden_dim, bias=False, gather_output=False, init_method=lambda x: x
+            dim, hidden_dim, bias=False, # gather_output=False, init_method=lambda x: x
         )
         self.w2 = Linear(
-            hidden_dim, dim, bias=False, input_is_parallel=True, init_method=lambda x: x
+            hidden_dim, dim, bias=False, # input_is_parallel=True, init_method=lambda x: x
         )
         self.w3 = Linear(
-            dim, hidden_dim, bias=False, gather_output=False, init_method=lambda x: x
+            dim, hidden_dim, bias=False, # gather_output=False, init_method=lambda x: x
         )
 
     def forward(self, x):
@@ -257,7 +257,7 @@ class Transformer(nn.Module):
         self.n_layers = params.n_layers
 
         self.tok_embeddings = Embedding(
-            params.vocab_size, params.dim, init_method=lambda x: x
+            params.vocab_size, params.dim, # init_method=lambda x: x
         )
 
         self.layers = torch.nn.ModuleList()
@@ -266,7 +266,7 @@ class Transformer(nn.Module):
 
         self.norm = RMSNorm(params.dim, eps=params.norm_eps)
         self.output = Linear(
-            params.dim, params.vocab_size, bias=False, init_method=lambda x: x
+            params.dim, params.vocab_size, bias=False, # init_method=lambda x: x
         )
 
         self.freqs_cis = precompute_freqs_cis(
