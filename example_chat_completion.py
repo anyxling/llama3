@@ -64,20 +64,20 @@ These are just a few of the many attractions that Paris has to offer. With so mu
             {"role": "user", "content": "How to go from Beijing to NY?"},
         ],
     ]
-    # results = generator.chat_completion(
-    #     dialogs,
-    #     max_gen_len=max_gen_len,
-    #     temperature=temperature,
-    #     top_p=top_p,
-    # )
+    results = generator.chat_completion(
+        dialogs,
+        max_gen_len=max_gen_len,
+        temperature=temperature,
+        top_p=top_p,
+    )
 
-    # for dialog, result in zip(dialogs, results):
-    #     for msg in dialog:
-    #         print(f"{msg['role'].capitalize()}: {msg['content']}\n")
-    #     print(
-    #         f"> {result['generation']['role'].capitalize()}: {result['generation']['content']}"
-    #     )
-    #     print("\n==================================\n")
+    for dialog, result in zip(dialogs, results):
+        for msg in dialog:
+            print(f"{msg['role'].capitalize()}: {msg['content']}\n")
+        print(
+            f"> {result['generation']['role'].capitalize()}: {result['generation']['content']}"
+        )
+        print("\n==================================\n")
 
 
 if __name__ == "__main__":
